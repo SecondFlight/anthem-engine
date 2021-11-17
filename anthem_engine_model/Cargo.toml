@@ -1,5 +1,5 @@
 [package]
-name = "anthem-engine-model"
+name = "anthem_engine_model"
 version = "0.1.0"
 edition = "2021"
 
