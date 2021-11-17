@@ -1,6 +1,7 @@
 pub mod pattern;
 pub mod project;
 pub mod song;
+pub mod util;
 
 #[cfg(test)]
 mod tests {
