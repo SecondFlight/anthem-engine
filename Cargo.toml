@@ -3,7 +3,9 @@ name = "anthem_engine"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "anthem_engine"
+path = "./src/main.rs"
 
 [dependencies]
 anthem_engine_model = { path = "./anthem_engine_model" }
