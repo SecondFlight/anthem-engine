@@ -17,18 +17,4 @@
     along with Anthem. If not, see <https://www.gnu.org/licenses/>.
 */
 
-pub mod message;
-pub mod messages;
-pub mod pattern;
-pub mod project;
-pub mod song;
-pub mod util;
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
-}
