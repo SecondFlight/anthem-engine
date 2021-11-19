@@ -19,7 +19,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{song::Song, util::id::get_id};
+use crate::{song::Song, util::get_id};
 
 #[derive(Serialize, Deserialize)]
 pub struct Project {
@@ -29,6 +29,9 @@ pub struct Project {
 
 impl Default for Project {
     fn default() -> Self {
-        Self { id: get_id(), song: Song::default() }
+        Self {
+            id: get_id(),
+            song: Song::default(),
+        }
     }
 }

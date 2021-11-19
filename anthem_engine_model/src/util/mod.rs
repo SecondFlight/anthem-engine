@@ -17,4 +17,6 @@
     along with Anthem. If not, see <https://www.gnu.org/licenses/>.
 */
 
-pub mod id;
+mod id;
+
+pub use id::get_id;

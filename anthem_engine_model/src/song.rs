@@ -21,7 +21,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
-use crate::{pattern::Pattern, util::id::get_id};
+use crate::{pattern::Pattern, util::get_id};
 
 #[derive(Serialize, Deserialize)]
 pub struct Song {
