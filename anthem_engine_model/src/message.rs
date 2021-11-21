@@ -19,8 +19,23 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::project::Project;
+
 #[derive(Serialize, Deserialize)]
 pub enum Message {
+    // Lifecycle
     Init,
     Exit,
+
+    // Save / Load
+    GetModel,
+    LoadModel(Project),
+}
+
+#[derive(Serialize, Deserialize)]
+pub enum Reply {
+    // Lifecycle
+
+    // Save / Load
+    GetModelReply(Project),
 }

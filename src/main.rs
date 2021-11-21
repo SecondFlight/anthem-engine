@@ -19,17 +19,32 @@
 
 // cspell:ignore appender bincode interprocess
 
-use std::io::{BufReader, Read};
+use std::io::{BufReader, Read, Write};
 
-use anthem_engine_model::message::Message;
+use anthem_engine_model::{
+    message::{Message, Reply},
+    project::Project,
+};
 use bincode;
 use interprocess::local_socket::LocalSocketStream;
-use log::{self, LevelFilter, debug, error};
+use log::{self, debug, error, LevelFilter};
 use log4rs::{
     self,
     append::file::FileAppender,
     config::{Appender, Root},
 };
+
+fn write(stream: &mut LocalSocketStream, reply: &Reply) {
+    let message_bytes = bincode::serialize(reply).unwrap();
+    let message_size = message_bytes.len().to_be_bytes();
+
+    stream
+        .write_all(&message_size)
+        .expect("Failed to write reply to engine.");
+    stream
+        .write_all(&message_bytes)
+        .expect("Failed to write reply to engine.");
+}
 
 fn main() {
     let ipc_id = std::env::args().nth(1);
@@ -83,7 +98,6 @@ fn main() {
 
         let header_length = usize::from_be_bytes(message_length_buffer);
 
-        debug!("Message length: {}", header_length);
         let mut message_buffer = vec![0u8; header_length];
         reader
             .read_exact(&mut message_buffer)
@@ -97,7 +111,15 @@ fn main() {
                 debug!("Initialize processed successfully!");
             }
             Message::Exit => {
+                debug!("Exiting...");
                 break;
+            }
+
+            Message::GetModel => {
+                write(reader.get_mut(), &Reply::GetModelReply(Project::default()));
+            }
+            Message::LoadModel(_project) => {
+                // TODO
             }
         }
     }
